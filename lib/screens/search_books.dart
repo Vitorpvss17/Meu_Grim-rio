@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grimorio/models/google_book.dart';
 import 'package:grimorio/screens/components/display_text.dart';
 import 'package:grimorio/screens/components/entry.dart';
 import 'package:grimorio/screens/components/primary_button.dart';
@@ -16,7 +17,7 @@ class SearchBooks extends StatefulWidget {
 class _SearchBooksState extends State<SearchBooks> {
   final GoogleBooksService googleBooksService = GoogleBooksService();
   // Need to change list type
-  Future<List<dynamic>>? booksList;
+  Future<List<GoogleBook>>? booksList;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +42,9 @@ class _SearchBooksState extends State<SearchBooks> {
                   child: TextFormField(
                     onChanged: (value){
                       // Populate list of books from API
-                      // setState(() {
-                      //   booksList = googleBooksService.searchBooks(value);
-                      // });
+                      setState(() {
+                        booksList = googleBooksService.searchBooks(value);
+                         });
                     },
                     decoration: InputDecorationProperties.newInputDecoration("Procure por título/autor(a)", "Busca", const Icon(Icons.search)),
                   ),

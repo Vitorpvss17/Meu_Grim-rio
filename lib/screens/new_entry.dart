@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:grimorio/controller/book_controller.dart';
+import 'package:grimorio/models/google_book.dart';
 import 'components/date_input.dart';
 import 'components/display_text.dart';
-import 'components/entry.dart';
 import 'components/primary_button.dart';
 import '../../theme.dart';
 
 import 'home.dart';
 
 class NewEntry extends StatefulWidget {
-  const NewEntry({super.key,});
+  NewEntry({super.key, required this.googleBook});
+
+  GoogleBook googleBook;
 
   @override
   State<NewEntry> createState() => _NewEntryState();
@@ -19,6 +22,8 @@ class _NewEntryState extends State<NewEntry> {
   final TextEditingController initialDateController = TextEditingController();
   final TextEditingController finalDateController = TextEditingController();
   final TextEditingController commentsController = TextEditingController();
+
+  final BookController bookController = BookController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +47,8 @@ class _NewEntryState extends State<NewEntry> {
                   child: Column(
                     children: <Widget>[
                       // Entry(book: "Book"),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 24.0),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 24.0),
                         child: Text("Book Description"),
                       ),
                       Form(
@@ -80,6 +85,7 @@ class _NewEntryState extends State<NewEntry> {
                                   text: "Adicionar",
                                   onTap: () {
                                     // Needs add book logic
+                                    bookController.addBook(widget.googleBook, initialDateController.text, finalDateController.text, commentsController.text);
 
                                     Navigator.pushAndRemoveUntil(
                                       context,
