@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grimorio/models/personal_book.dart';
 
 import '../../theme.dart';
 import 'components/display_text.dart';
@@ -8,7 +9,8 @@ import 'edit_details.dart';
 import 'home.dart';
 
 class BookDetails extends StatefulWidget {
-  BookDetails({super.key,});
+  BookDetails({super.key,required this.personalBook});
+  PersonalBook personalBook;
 
   @override
   State<BookDetails> createState() => _BookDetailsState();
@@ -59,8 +61,8 @@ class _BookDetailsState extends State<BookDetails> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 24.0),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 24.0),
                     child: Row(
                       children: [
                         Expanded(
@@ -91,12 +93,12 @@ class _BookDetailsState extends State<BookDetails> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
                     child: Row(children: <Widget>[
                       Text(
                         "Day started",
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                       )
                     ]),
@@ -119,12 +121,12 @@ class _BookDetailsState extends State<BookDetails> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 16.0),
                     child: Row(children: <Widget>[
                       Text(
                         "Day Finished",
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                       )
                     ]),
@@ -140,8 +142,8 @@ class _BookDetailsState extends State<BookDetails> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 32.0),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 32.0),
                     child: Row(
                       children: [
                         Expanded(child: Text("Book Comments")),
@@ -154,18 +156,18 @@ class _BookDetailsState extends State<BookDetails> {
                       icon: Icons.edit,
                       text: "Editar",
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => EditDetails(
-                        //               book: "book",
-                        //             ))).then((value) {
-                        //   setState(() {
-                        //     if (value != null) {
-                        //       "Update book";
-                        //     }
-                        //   });
-                        // });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditDetails(
+                                      personalBook: widget.personalBook,
+                                    ))).then((value) {
+                          setState(() {
+                            if (value != null) {
+                              "Update book";
+                            }
+                          });
+                        });
                       },
                     ),
                   ),
