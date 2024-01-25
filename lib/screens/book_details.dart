@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grimorio/controller/book_controller.dart';
 import 'package:grimorio/models/personal_book.dart';
 
 import '../../theme.dart';
@@ -17,6 +18,7 @@ class BookDetails extends StatefulWidget {
 }
 
 class _BookDetailsState extends State<BookDetails> {
+  final BookController bookController = BookController();
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +166,7 @@ class _BookDetailsState extends State<BookDetails> {
                                     ))).then((value) {
                           setState(() {
                             if (value != null) {
-                              "Update book";
+                              widget.personalBook = value;
                             }
                           });
                         });
@@ -178,11 +180,12 @@ class _BookDetailsState extends State<BookDetails> {
                       text: "Excluir",
                       onTap: () {
                         // Delete book
-                        // Navigator.pushAndRemoveUntil(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => const Home()),
-                        //   (_) => false,
-                        // );
+                        bookController.deleteBook(widget.personalBook);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Home()),
+                          (_) => false,
+                        );
                       },
                     ),
                   ),
